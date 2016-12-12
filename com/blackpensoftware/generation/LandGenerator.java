@@ -26,9 +26,8 @@ public class LandGenerator {
 		this.depth = depth;
 		this.subDivs = subDivs;
 		
-		generateMapPoints();
-		
-	}
+		generateMapPoints();	
+	}// End of LandGenerator constructor
 
 	public void generateMapPoints(){
 		for(int row = 0; row < subDivs; row++){
