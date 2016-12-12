@@ -2,6 +2,8 @@ package com.blackpensoftware.handlers;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.blackpensoftware.generation.LandGenerator;
 import com.blackpensoftware.models.Model;
@@ -10,6 +12,7 @@ import com.blackpensoftware.primitives.VectorPoint;
 public class BasicObjectHandler {
 	ArrayList<Model> objects = new ArrayList<Model>();
 	private DrawHandler drawHandler;
+	private GravityHandler gravityHandler = new GravityHandler(0.5);
 	
 	public BasicObjectHandler(DrawHandler drawHandler){
 		this.drawHandler = drawHandler;
@@ -31,7 +34,7 @@ public class BasicObjectHandler {
 	    VectorPoint[] pointArray = {point1, point2, point3, point4};
 	    int[] pointOrder = {0,1,2,2,3,1};
 	    
-		Model model = new Model(pointArray, pointOrder);
+		Model model = new Model(pointArray, pointOrder, true, 100);
 		objects.add(model);
 		
 		LandGenerator landGeneration = new LandGenerator(0, 0, 0, 1024, 1024, 32);
@@ -39,6 +42,14 @@ public class BasicObjectHandler {
 		for(Model currentModel: models){
 			objects.add(currentModel);
 		}
+		
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask(){
+			@Override
+			public void run(){
+				gravityHandler.applyGravity(model);
+			}	
+		}, 0, 1000 / 60);
 		
 	}
 	

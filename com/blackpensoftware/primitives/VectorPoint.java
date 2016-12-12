@@ -42,4 +42,20 @@ public class VectorPoint {
 	public Color getColor() {
 		return color;
 	}
+
+	public void setxPos(int xPos) {
+		this.xPos = xPos;
+	}
+
+	public void setyPos(int yPos) {
+		this.yPos = yPos;
+	}
+
+	public void setzPos(int zPos) {
+		this.zPos = zPos;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
 }// End of class
