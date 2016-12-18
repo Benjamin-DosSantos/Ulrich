@@ -1,4 +1,4 @@
-package com.blackpensoftware.launcher.core;
+package com.blackpensoftware.frames;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,10 +6,12 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-import com.blackpensoftware.handlers.ConfigurationHandler;
-import com.blackpensoftware.configuration.core.Settings;
+import com.blackpensoftware.fileIO.ConfigurationHandler;
+import com.blackpensoftware.fileIO.Settings;
 import com.blackpensoftware.core.LWJGE_Window;
-import com.blackpensoftware.handlers.LogHandler;
+import com.blackpensoftware.fileIO.LogHandler;
+import com.blackpensoftware.panels.LauncherPanel;
+import com.blackpensoftware.panels.SavePanel;
 
 public class LauncherFrame extends JFrame{
 	

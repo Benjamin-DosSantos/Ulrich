@@ -1,11 +1,9 @@
 package com.blackpensoftware.generation;
 
 import java.awt.Color;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.blackpensoftware.handlers.PointSmoothingHandler;
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.primitives.VectorPoint;
 

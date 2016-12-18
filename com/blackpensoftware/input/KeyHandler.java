@@ -1,14 +1,16 @@
-package com.blackpensoftware.handlers;
+package com.blackpensoftware.input;
 
 import static org.lwjgl.glfw.GLFW.*;
+
+import com.blackpensoftware.fileIO.FileHandler;
 import org.lwjgl.opengl.GL11;
 
 import java.io.File;
-import java.security.Key;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class KeyHandler{
-
     File keyMasterFile;
 
 	EscapeHandler escHandler = new EscapeHandler();
@@ -17,13 +19,14 @@ public class KeyHandler{
     HashMap<String, Integer> keyMap = new HashMap<>();
 
 	public KeyHandler(){
-        this.keyMasterFile = fileHandler.loadFile("KeySelections.txt");
+	    this.keyMasterFile = fileHandler.loadFile("KeySelections.txt");
+	    writeDefaultsToFile();
     }
 
 	public void handleKeys(long window) {
         glfwSetKeyCallback(window, (window1, key, scancode, action, mods) -> {
             switch (key) {
-                case keyMap.get("Forward"):
+                case GLFW_KEY_W:
                     GL11.glTranslatef(0, 0, 100);
                     break;
                 case GLFW_KEY_S:
@@ -69,7 +72,11 @@ public class KeyHandler{
         keyMap.put("Right", GLFW_KEY_D);
     }
 
-	private void parseKeysFromFile(File KeyFile){
+    private void writeDefaultsToFile(){
+
+    }
+
+	private void parseKeysFromFile(){
 
     }
 }// End of class

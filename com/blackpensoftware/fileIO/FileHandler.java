@@ -1,4 +1,4 @@
-package com.blackpensoftware.handlers;
+package com.blackpensoftware.fileIO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.blackpensoftware.launcher.core.LauncherFrame;
+import com.blackpensoftware.frames.LauncherFrame;
 
 public class FileHandler {
 	
@@ -145,4 +145,31 @@ public class FileHandler {
 		log.addLogText(fileName + " loaded");
 		return file;
 	}// End of loadConfig method
+
+    public void writeStringToFile(File fileToWrite, String data){
+        PrintWriter writer = createCustomWriter(fileToWrite);
+        writer.println(data);
+        writer.close();
+    }// End of write StringToFile method
+
+    public void writeArrayToFile(File fileToWrite, String[] data){
+        PrintWriter writer = createCustomWriter(fileToWrite);
+
+        for(String dataPart: data){
+            writer.println(dataPart);
+        }
+        writer.close();
+    }// End of writeArrayToFile
+
+    public PrintWriter createCustomWriter(File fileToWrite){
+        FileWriter fileWriter;
+        PrintWriter writer = null;
+        try {
+            fileWriter = createFileWriter(fileToWrite, true);
+            writer = createWriter(fileWriter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return writer;
+    }
 }// End of class

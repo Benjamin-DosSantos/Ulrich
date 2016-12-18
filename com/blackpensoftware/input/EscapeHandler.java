@@ -1,4 +1,4 @@
-package com.blackpensoftware.handlers;
+package com.blackpensoftware.input;
 
 public class EscapeHandler {
 	//LogHandler log = LWJGE_Window.getLog();

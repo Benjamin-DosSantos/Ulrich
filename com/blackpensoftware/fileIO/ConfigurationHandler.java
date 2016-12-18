@@ -1,21 +1,23 @@
-package com.blackpensoftware.handlers;
+package com.blackpensoftware.fileIO;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.blackpensoftware.configuration.core.Settings;
-import com.blackpensoftware.handlers.FileHandler;
-import com.blackpensoftware.launcher.core.LauncherFrame;
-import com.blackpensoftware.handlers.LogHandler;
+import com.blackpensoftware.fileIO.Settings;
+import com.blackpensoftware.fileIO.FileHandler;
+import com.blackpensoftware.fileIO.LogHandler;
+import com.blackpensoftware.frames.LauncherFrame;
 
 public class ConfigurationHandler {
+    private String fileName = "Settings.txt";
+
 	String[][] settings = {
             {"width", "700"},
             {"height", "500"}
 	};
-	
+
 	FileHandler fileHandler = new FileHandler();
 	LogHandler log = LauncherFrame.getLog();
 	
@@ -36,7 +38,7 @@ public class ConfigurationHandler {
 	 * 
 	 **/
 	public void loadConfig(){
-		File config = fileHandler.createFile("Settings.txt");
+		File config = fileHandler.createFile(fileName);
 		
 		if(!config.exists()){
 			log.addLogWarning("No settings file found");
@@ -93,7 +95,7 @@ public class ConfigurationHandler {
 	 * 
 	 **/
 	public void parseSettings(){
-		File settingsFile = fileHandler.createFile("Settings.txt");
+		File settingsFile = fileHandler.createFile(fileName);
 		
 		if(!settingsFile.exists()){
 			log.addLogError("No settings file");

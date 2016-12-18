@@ -1,4 +1,4 @@
-package com.blackpensoftware.handlers;
+package com.blackpensoftware.input;
 
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 

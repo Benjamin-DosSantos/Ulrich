@@ -1,6 +1,6 @@
-package com.blackpensoftware.configuration.core;
+package com.blackpensoftware.fileIO;
 
-import com.blackpensoftware.launcher.core.LauncherFrame;
+import com.blackpensoftware.frames.LauncherFrame;
 
 public class Settings {
 	

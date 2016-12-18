@@ -1,4 +1,4 @@
-package com.blackpensoftware.handlers;
+package com.blackpensoftware.physics;
 
 public class MotionHandler {
 	

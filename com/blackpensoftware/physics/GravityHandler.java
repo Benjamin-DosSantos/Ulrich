@@ -1,4 +1,4 @@
-package com.blackpensoftware.handlers;
+package com.blackpensoftware.physics;
 
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.primitives.VectorPoint;
