@@ -29,7 +29,6 @@ public class LandGenerator {
 		this.subDivs = subDivs;
 		
 		generateMapPoints();
-		//pointSmoother.cleanUpPoints(models, 0, 0);
 	}// End of LandGenerator constructor
 
 	public void generateMapPoints(){

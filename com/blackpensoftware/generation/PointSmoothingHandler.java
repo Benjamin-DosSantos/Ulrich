@@ -13,15 +13,11 @@ public class PointSmoothingHandler {
 
     Random ran = new Random();
 
+    int[] lastRowYVals;
+
     public void cleanUpPoints(ArrayList<Model> models, int hightestPoint, int maxDiff){
-        for(Model model: models){
-            VectorPoint[] points = model.getPoints();
-            for(int point = 1; point < points.length; point++){
-                int lastYPos = points[point - 1].getyPos();
-                int changeAmount = ran.nextInt(maxDiff * 2) - maxDiff;  // from -highest to highest
-                int nextYPos = lastYPos + changeAmount;
-                points[point].setyPos(nextYPos);
-            }// End of for all of the points in the model
-        }// End of for Models in the terrain
+        for(Model currentRow: models){
+
+        }
     }// End of cleanUpPoints
 }// End of class

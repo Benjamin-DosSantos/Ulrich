@@ -21,15 +21,26 @@ public class BasicObjectHandler {
      * Author: Benjamin DosSantos Jr.
      *
      * Method description:
-     *
+     *      Sets the class variable for the drawHandler to a custom value
      * @param
-     * @return
+     *      drawHandler: The current instance DrawHandler
      *
      **/
 	public BasicObjectHandler(DrawHandler drawHandler){
 		this.drawHandler = drawHandler;
 	}
-	
+
+    /**
+     * Method Name: createBasicObjects
+     *
+     * Author: Benjamin DosSantos Jr.
+     *
+     * Method description:
+     *      This is the method that adds all of the core needed models to the scene
+     *      Used for basic objects, complex objects should have their own classes
+     *      and can be called here for convenience
+     **/
+
 	public void createBasicObjects(){
 		int xPos = 200;
 		int yPos = 700;
@@ -63,11 +74,21 @@ public class BasicObjectHandler {
 			}	
 		}, 0, 1000 / 60);
 		
-	}
-	
+	}// End of createBasicObjects method
+
+    /**
+     * Method Name: pushBasicObjects
+     *
+     * Author: Benjamin DosSantos Jr.
+     *
+     * Method description:
+     *      Sends all of the basic objects to the objects to draw array
+     *      //TODO: Replace with a send to the LiveBuffer
+     *
+     **/
 	public void pushBasicObjects(){
 		for(Model currentObject: objects){
 			drawHandler.getObjectsToDraw().add(currentObject);
-		}
-	}
-}
+		}// End of for the models in the currentObjectsArray
+	}// End of pushBasicObjects method
+}// End of class
