@@ -19,10 +19,9 @@ public class DrawHandler {
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
 		GL.createCapabilities();
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glMatrixMode(GL11.GL_RENDER_MODE);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, windowWidth, 0, windowHeight, 20000, -20000);
-		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glClearDepth(1.0f);
 		GL11.glViewport(0, 0, windowWidth, windowHeight);
 	}

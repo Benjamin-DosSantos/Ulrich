@@ -6,10 +6,10 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-import com.blackpensoftware.configuration.core.ConfigurationHandler;
+import com.blackpensoftware.handlers.ConfigurationHandler;
 import com.blackpensoftware.configuration.core.Settings;
 import com.blackpensoftware.core.LWJGE_Window;
-import com.blackpensoftware.logs.LogHandler;
+import com.blackpensoftware.handlers.LogHandler;
 
 public class LauncherFrame extends JFrame{
 	

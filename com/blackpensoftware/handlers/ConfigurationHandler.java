@@ -1,16 +1,20 @@
-package com.blackpensoftware.configuration.core;
+package com.blackpensoftware.handlers;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import com.blackpensoftware.configuration.core.Settings;
 import com.blackpensoftware.handlers.FileHandler;
 import com.blackpensoftware.launcher.core.LauncherFrame;
-import com.blackpensoftware.logs.LogHandler;
+import com.blackpensoftware.handlers.LogHandler;
 
 public class ConfigurationHandler {
-	String[] settings = {"width", "height"};
+	String[][] settings = {
+            {"width", "700"},
+            {"height", "500"}
+	};
 	
 	FileHandler fileHandler = new FileHandler();
 	LogHandler log = LauncherFrame.getLog();
@@ -66,14 +70,18 @@ public class ConfigurationHandler {
 			fileWriter = fileHandler.createFileWriter(settingsFile, true);
 			writer = fileHandler.createWriter(fileWriter);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		writer.println("width: 700");
-		writer.println("height: 500");
-		writer.close();
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		writeDefaultInforamtion(writer);
 	}
+
+	private void writeDefaultInforamtion(PrintWriter writer){
+        for(String[] settingsItem: settings){
+            writer.println(settingsItem[0] + ":" + settingsItem[1]);
+        }
+        writer.close();
+    }
 
 	/**
 	 * Method Name: parseSettings

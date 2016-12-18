@@ -1,4 +1,4 @@
-package com.blackpensoftware.logs;
+package com.blackpensoftware.handlers;
 
 import java.io.File;
 import java.io.FileWriter;

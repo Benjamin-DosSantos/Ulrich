@@ -1,9 +1,11 @@
 package com.blackpensoftware.generation;
 
 import java.awt.Color;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.blackpensoftware.handlers.PointSmoothingHandler;
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.primitives.VectorPoint;
 
@@ -16,6 +18,8 @@ public class LandGenerator {
 	private int subDivs;
 	
 	private ArrayList<Model> models = new ArrayList<Model>();
+	PointSmoothingHandler pointSmoother = new PointSmoothingHandler();
+
 	Random ran = new Random();
 	
 	public LandGenerator(int xPos, int yPos, int zPos, int width, int depth, int subDivs){
@@ -26,7 +30,8 @@ public class LandGenerator {
 		this.depth = depth;
 		this.subDivs = subDivs;
 		
-		generateMapPoints();	
+		generateMapPoints();
+		//pointSmoother.cleanUpPoints(models, 0, 0);
 	}// End of LandGenerator constructor
 
 	public void generateMapPoints(){
@@ -37,7 +42,7 @@ public class LandGenerator {
 			models.add(newStrip);
 		}
 	}
-	
+
 	public VectorPoint[] generateStripPoints(int currentRow){
 		VectorPoint[] col = new VectorPoint[subDivs * 2];
 			
@@ -50,7 +55,7 @@ public class LandGenerator {
 			}
 			
 			int xPos = this.xPos + xOffset + currentRow * (width / subDivs);
-			int yPos = this.yPos + ran.nextInt(50);
+			int yPos = this.yPos;
 			int zPos = this.zPos + zoffset + currentCol * (depth / subDivs);
 		
 			col[currentCol] = new VectorPoint(xPos, yPos, zPos, Color.BLUE);

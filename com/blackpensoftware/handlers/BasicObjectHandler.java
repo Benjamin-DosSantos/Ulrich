@@ -34,7 +34,7 @@ public class BasicObjectHandler {
 	    VectorPoint[] pointArray = {point1, point2, point3, point4};
 	    int[] pointOrder = {0,1,2,2,3,1};
 	    
-		Model model = new Model(pointArray, pointOrder, true, 100);
+		Model model = new Model(pointArray, pointOrder);
 		objects.add(model);
 		
 		LandGenerator landGeneration = new LandGenerator(0, 0, 0, 1024, 1024, 32);

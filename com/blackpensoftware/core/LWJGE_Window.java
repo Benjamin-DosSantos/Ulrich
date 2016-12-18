@@ -9,12 +9,12 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-import com.blackpensoftware.configuration.core.ConfigurationHandler;
+import com.blackpensoftware.handlers.ConfigurationHandler;
 import com.blackpensoftware.configuration.core.Settings;
 import com.blackpensoftware.handlers.BasicObjectHandler;
 import com.blackpensoftware.handlers.DrawHandler;
 import com.blackpensoftware.handlers.KeyHandler;
-import com.blackpensoftware.logs.LogHandler;
+import com.blackpensoftware.handlers.LogHandler;
 
 public class LWJGE_Window {
 	// The window handle

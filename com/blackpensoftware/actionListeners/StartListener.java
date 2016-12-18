@@ -6,8 +6,7 @@ import java.awt.event.ActionListener;
 import com.blackpensoftware.core.FullLaunch;
 import com.blackpensoftware.core.LWJGE_Window;
 import com.blackpensoftware.launcher.core.LauncherFrame;
-import com.blackpensoftware.launcher.core.LauncherPanel;
-import com.blackpensoftware.logs.LogHandler;
+import com.blackpensoftware.handlers.LogHandler;
 
 public class StartListener implements ActionListener{
 	LogHandler log = LauncherFrame.getLog();

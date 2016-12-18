@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.blackpensoftware.launcher.core.LauncherFrame;
-import com.blackpensoftware.logs.LogHandler;
 
 public class FileHandler {
 	
