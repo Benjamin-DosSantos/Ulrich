@@ -2,16 +2,20 @@ package com.blackpensoftware.drawing;
 
 import java.util.ArrayList;
 
+import com.blackpensoftware.buffer.LiveBuffer;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
-import com.blackpensoftware.generation.LandGenerator;
 import com.blackpensoftware.models.Model;
 
 public class DrawHandler {
-	
-	private ArrayList<Model> objectsToDraw = new ArrayList<Model>();
-	
+
+	private LiveBuffer liveBuffer;
+
+	public DrawHandler(LiveBuffer liveBuffer){
+		this.liveBuffer = liveBuffer;
+	}
+
 	private int windowWidth;
 	private int windowHeight;
 
@@ -37,7 +41,7 @@ public class DrawHandler {
 		GL11.glOrtho(0, windowWidth, 0, windowHeight, 20000, -20000);
 		GL11.glClearDepth(1.0f);
 		GL11.glViewport(0, 0, windowWidth, windowHeight);
-	}
+	}// End of defaultAttribs method
 
     /**
      * Method Name: drawAllObjects
@@ -46,28 +50,25 @@ public class DrawHandler {
      *
      * Method description:
      *      Draws all of the obects in the objects to draw
-     *      //TODO: Replace with LiveBuffer system
      *
      **/
+	int translateMax = 500;
+	int rotateMax = 1000;
+	int currentTranslate = 0;
+	int currentRotate = 0;
+
 	public void drawAllObjects() {
 		GL11.glClearColor(0, 0, 0, 1);                        
-		for(Model object: objectsToDraw){
-			object.drawModel();
+		liveBuffer.drawAllModels();
+
+		if(currentTranslate < translateMax){
+			GL11.glTranslatef(0, 1, 0);
+			currentTranslate++;
+		}
+
+		if(currentRotate < rotateMax){
+			GL11.glRotatef(0.01f, 1, 0, 0);
+			currentRotate++;
 		}
 	}// End of drawAllObjects method
-
-    /**
-     * Method Name: getObjectsToDraw
-     *
-     * Author: Benjamin DosSantos Jr.
-     *
-     * Method description:
-     *      Gets the ArrayList of all objects to draw
-     * @return
-     *      ArrayList of models to draw
-     *
-     **/
-	public ArrayList<Model> getObjectsToDraw() {
-		return objectsToDraw;
-	}
 }// End of class

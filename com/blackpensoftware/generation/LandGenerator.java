@@ -6,6 +6,8 @@ import java.util.Random;
 
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.primitives.VectorPoint;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 
 public class LandGenerator {
 	private int xPos;
@@ -20,7 +22,7 @@ public class LandGenerator {
 
 	Random ran = new Random();
 	
-	public LandGenerator(int xPos, int yPos, int zPos, int width, int depth, int subDivs){
+	public LandGenerator(int xPos, int yPos, int zPos, int width, int depth, int subDivs, int max, int min){
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.zPos = zPos;
@@ -29,6 +31,7 @@ public class LandGenerator {
 		this.subDivs = subDivs;
 		
 		generateMapPoints();
+		pointSmoother.cleanUpPoints(models, subDivs, max, min);
 	}// End of LandGenerator constructor
 
 	public void generateMapPoints(){
@@ -37,28 +40,35 @@ public class LandGenerator {
 			int[] pointOrder = orderStripPoints(stripPoints);
 			Model newStrip = new Model(stripPoints, pointOrder);
 			models.add(newStrip);
-		}
-	}
+		}// End of for the strips in the land
+	}// End of generateMapPoints method
 
 	public VectorPoint[] generateStripPoints(int currentRow){
 		VectorPoint[] col = new VectorPoint[subDivs * 2];
-			
+		boolean swap = false;
+
 		for(int currentCol = 0; currentCol < subDivs * 2; currentCol++){
 			int zoffset = 0;
 			int xOffset = 0;
+
 			if(currentCol >= subDivs){
 				zoffset = -(subDivs * (depth / subDivs));
 				xOffset = (width / subDivs);
 			}
-			
+
 			int xPos = this.xPos + xOffset + currentRow * (width / subDivs);
 			int yPos = this.yPos;
 			int zPos = this.zPos + zoffset + currentCol * (depth / subDivs);
 		
-			col[currentCol] = new VectorPoint(xPos, yPos, zPos, Color.BLUE);
-		}
+			if(swap){
+				col[currentCol] = new VectorPoint(xPos, yPos, zPos, Color.BLUE);
+			}else{
+				col[currentCol] = new VectorPoint(xPos, yPos, zPos, Color.GREEN);
+			}
+			swap = !swap;
+		}// End of for the number of points in the strip
 		return col;
-	}
+	}// End of generateStripPoints method
 	
 	public int[] orderStripPoints(VectorPoint[] pointsToOrder){
 		ArrayList<Integer> pointOrder = new ArrayList<Integer>();

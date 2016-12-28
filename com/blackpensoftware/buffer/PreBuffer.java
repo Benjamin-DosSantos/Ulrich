@@ -1,13 +1,18 @@
 package com.blackpensoftware.buffer;
 
-import com.blackpensoftware.fileIO.Save;
+
+import com.blackpensoftware.core.LWJGE_Window;
+import com.blackpensoftware.fileIO.LogHandler;
+import sun.rmi.runtime.Log;
 
 /**
  * Created by Benjamin DosSantos on 12/17/2016.
  */
 public class PreBuffer {
+    private LogHandler logHandler;
+
     private String saveName;
-    private Save currentSave;
+    //private Save currentSave;
 
     /**
      * Method Name: PreBuffer
@@ -18,9 +23,13 @@ public class PreBuffer {
      *      Create default values for the information to be loaded from the save file
      *
      **/
-    public PreBuffer(){
+    public PreBuffer(LogHandler logHandler){
+        this.logHandler = logHandler;
+
+        logHandler.addLogText("Pre Buffer Created");
+
         saveName = "Game_1";
-        this.currentSave = new Save(saveName);
+       // this.currentSave = new Save(saveName);
     }// End of constructor
 
     /**
@@ -36,7 +45,7 @@ public class PreBuffer {
      **/
     public PreBuffer(String saveName){
         this.saveName = saveName;
-        this.currentSave = new Save(saveName);
+        //this.currentSave = new Save(saveName);
     }// End of constructor
 
     /**
@@ -49,6 +58,6 @@ public class PreBuffer {
      *
      **/
     public LiveBuffer populateLiveBuffer(){
-        return new LiveBuffer();
+        return new LiveBuffer(logHandler);
     }// End of populateLiveBuffer Method
 }// End of class

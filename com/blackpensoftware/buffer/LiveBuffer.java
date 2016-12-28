@@ -2,9 +2,11 @@ package com.blackpensoftware.buffer;
 
 import java.util.ArrayList;
 
+import com.blackpensoftware.fileIO.LogHandler;
 import com.blackpensoftware.models.Model;
 
 public class LiveBuffer {
+	private LogHandler logHandler;
 	private ArrayList<Model> activeModels = new ArrayList<Model>();
 
     /**
@@ -16,8 +18,8 @@ public class LiveBuffer {
      *      Creates a new ArrayList for all active models in the view
      *
      **/
-	public LiveBuffer(){
-		this(new ArrayList<Model>());
+	public LiveBuffer(LogHandler logHandler){
+		this(logHandler, new ArrayList<Model>());
 	}// End of constructor
 
     /**
@@ -32,8 +34,10 @@ public class LiveBuffer {
      *      activeModels: ArrayList of Models that will act as the master list
      *
      **/
-	public LiveBuffer(ArrayList<Model> activeModels){
+	public LiveBuffer(LogHandler logHandler, ArrayList<Model> activeModels){
+		this.logHandler = logHandler;
 		this.activeModels = activeModels;
+		logHandler.addLogText("Live Buffer started");
 	}// End of constructor
 
     /**
@@ -51,6 +55,7 @@ public class LiveBuffer {
 	public void addModel(Model... model){
 		for(Model nextToAdd: model){
 			activeModels.add(nextToAdd);
+			logHandler.addLogText("Model added to live buffer");
 		}// End of for the Models in the signature
 	}// End of addModel method
 
@@ -69,6 +74,7 @@ public class LiveBuffer {
 	public void addModel(ArrayList<Model> models){
 		for(Model model: models){
 			activeModels.add(model);
+			logHandler.addLogText("Model added to live buffer");
 		}// End of for the number of models in the ArrayList
 	}// End of addModel method
 
@@ -86,6 +92,7 @@ public class LiveBuffer {
      **/
 	public void removeModel(Model model){
 		activeModels.add(model);
+		logHandler.addLogText("Model removed from live buffer");
 	}// End of removeModel method
 
     /**
@@ -99,6 +106,25 @@ public class LiveBuffer {
 	public void removeAllModels(){
 		for(Model model: activeModels){
 			activeModels.remove(model);
+			logHandler.addLogText("Model removed from live buffer");
 		}// End of for all of the models in the activeModels ArrayList
 	}// End of removeAllModels method
+
+	public void drawAllModels(){
+		for(Model nextModel: activeModels){
+			nextModel.drawModel();
+		}
+	}
+
+	public ExitBuffer populateExitBuffer(){
+		return new ExitBuffer(logHandler);
+	}
+
+	public ArrayList<Model> getActiveModels() {
+		return activeModels;
+	}
+
+	public void setActiveModels(ArrayList<Model> activeModels) {
+		this.activeModels = activeModels;
+	}
 }// End of class

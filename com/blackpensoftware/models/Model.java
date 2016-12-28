@@ -44,7 +44,7 @@ public class Model {
 	}// End of constructor
 	
 	public void drawModel(){	
-		GL11.glBegin(GL11.GL_LINE_STRIP);
+		GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
 		for(int point: pointOrder){
 			VectorPoint currentPoint = points[point];
 			Color colorMaster = currentPoint.getColor();

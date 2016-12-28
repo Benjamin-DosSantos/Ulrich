@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.blackpensoftware.buffer.LiveBuffer;
 import com.blackpensoftware.generation.LandGenerator;
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.physics.GravityHandler;
@@ -13,7 +14,7 @@ import com.blackpensoftware.primitives.VectorPoint;
 public class BasicObjectHandler {
 	ArrayList<Model> objects = new ArrayList<Model>();
 	private DrawHandler drawHandler;
-	private GravityHandler gravityHandler = new GravityHandler(0.5);
+	private LiveBuffer liveBuffer;
 
     /**
      * Method Name: BasicObjectHandler
@@ -26,9 +27,12 @@ public class BasicObjectHandler {
      *      drawHandler: The current instance DrawHandler
      *
      **/
-	public BasicObjectHandler(DrawHandler drawHandler){
+	public BasicObjectHandler(DrawHandler drawHandler, LiveBuffer liveBuffer){
 		this.drawHandler = drawHandler;
-	}
+		this.liveBuffer = liveBuffer;
+
+		createBasicObjects();
+	}// End of constructor
 
     /**
      * Method Name: createBasicObjects
@@ -57,38 +61,12 @@ public class BasicObjectHandler {
 	    VectorPoint[] pointArray = {point1, point2, point3, point4};
 	    int[] pointOrder = {0,1,2,2,3,1};
 	    
-		final Model model = new Model(pointArray, pointOrder);
-		objects.add(model);
+		final Model model = new Model(pointArray, pointOrder, false);
+		liveBuffer.addModel(model);
 		
-		LandGenerator landGeneration = new LandGenerator(0, 0, 0, 1024, 1024, 32);
+		LandGenerator landGeneration = new LandGenerator(0, 0, 0, 1024, 1024, 32, 50, 0);
 		ArrayList<Model> models = landGeneration.getModels();
-		for(Model currentModel: models){
-			objects.add(currentModel);
-		}
-		
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask(){
-			@Override
-			public void run(){
-				gravityHandler.applyGravity(model);
-			}	
-		}, 0, 1000 / 60);
-		
-	}// End of createBasicObjects method
 
-    /**
-     * Method Name: pushBasicObjects
-     *
-     * Author: Benjamin DosSantos Jr.
-     *
-     * Method description:
-     *      Sends all of the basic objects to the objects to draw array
-     *      //TODO: Replace with a send to the LiveBuffer
-     *
-     **/
-	public void pushBasicObjects(){
-		for(Model currentObject: objects){
-			drawHandler.getObjectsToDraw().add(currentObject);
-		}// End of for the models in the currentObjectsArray
-	}// End of pushBasicObjects method
+		liveBuffer.addModel(models);
+	}// End of createBasicObjects method
 }// End of class

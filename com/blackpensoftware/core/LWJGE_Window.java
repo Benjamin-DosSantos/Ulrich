@@ -26,6 +26,8 @@ import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
+import com.blackpensoftware.buffer.ExitBuffer;
+import com.blackpensoftware.physics.GravityHandler;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -43,42 +45,46 @@ import com.blackpensoftware.input.KeyHandler;
 public class LWJGE_Window {
 	// The window handle
 	private long window;
-	private boolean isRunning = false;
 	
-	private LogHandler log;
+	private LogHandler logHandler;
 	private ConfigurationHandler config; 
 	private Settings settings;
 	
 
-	private DrawHandler drawHandler = new DrawHandler();
-	private BasicObjectHandler baseObjects = new BasicObjectHandler(drawHandler);
+	private DrawHandler drawHandler;
 	private KeyHandler keys = new KeyHandler();
 
-	private PreBuffer preBuffer = new PreBuffer();
-    private LiveBuffer liveBuffer = preBuffer.populateLiveBuffer();
+	private PreBuffer preBuffer;
+    private LiveBuffer liveBuffer;
+	private ExitBuffer exitBuffer;
+
+	private GravityHandler gravityHandler = new GravityHandler();
 
 	private String gameName = "Ulrich";
 	
 	int windowWidth = 0;
 	int windowHeight = 0;
 	
-	public void run(LogHandler log, ConfigurationHandler config, Settings settings) {
-		this.log = log;
+	public void run(LogHandler logHandler, ConfigurationHandler config, Settings settings) {
+		this.logHandler = logHandler;
 		this.config = config;
 		this.settings = settings;
 		
-		this.log.addLogText("Running LWJGL " + Version.getVersion());
+		this.logHandler.addLogText("Running LWJGL " + Version.getVersion());
 
 		this.config = new ConfigurationHandler();
 		
 		windowWidth = settings.getWidth();
 		windowHeight = settings.getHeight();
-		
-		baseObjects.createBasicObjects();
-		baseObjects.pushBasicObjects();
+
+		preBuffer = new PreBuffer(logHandler);
+		liveBuffer = preBuffer.populateLiveBuffer();
+		drawHandler = new DrawHandler(liveBuffer);
+
+		new BasicObjectHandler(drawHandler, liveBuffer);
+
 		
 		try {
-			isRunning = true;
 			init();
 			loop();
 
@@ -89,7 +95,9 @@ public class LWJGE_Window {
 			// Terminate GLFW and free the error callback
 			glfwTerminate();
 			glfwSetErrorCallback(null).free();
-			isRunning = false;
+
+			exitBuffer = liveBuffer.populateExitBuffer();
+			exitBuffer.fullExit();
 		}
 	}
 
@@ -100,7 +108,7 @@ public class LWJGE_Window {
 
 		// Initialize GLFW. Most GLFW functions will not work before doing this.
 		if (!glfwInit()){
-			log.addLogError("Unable to initialize GLFW");
+			logHandler.addLogError("Unable to initialize GLFW");
 			throw new IllegalStateException("Unable to initialize GLFW");
 		}
 		// Configure our window
@@ -126,14 +134,16 @@ public class LWJGE_Window {
 		glfwSwapInterval(0);
 		// Make the window visible
 		glfwShowWindow(window);
+
+		gravityHandler.createGravity(liveBuffer);
 	}
 	
 	private void validateWindow(long windowToCheck) {
 		if (windowToCheck == NULL){
-			log.addLogError("Failed to create the GLFW window");
+			logHandler.addLogError("Failed to create the GLFW window");
 			throw new RuntimeException("Failed to create the GLFW window");
 		}else{
-			log.addLogText("GLFW window opened");
+			logHandler.addLogText("GLFW window opened");
 		}
 	}
 	
@@ -158,20 +168,21 @@ public class LWJGE_Window {
 		}
 	}
 
+	public static void main(String[] args){
+		new LWJGE_Window().run(new LogHandler(), new ConfigurationHandler(), new Settings());
+	}
+
+
 	public void clear(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 	}
-	
-	public boolean isRunning() {
-		return isRunning;
+
+	public LogHandler getLogHandler() {
+		return logHandler;
 	}
 
-	public LogHandler getLog() {
-		return log;
-	}
-
-	public void setLog(LogHandler log) {
-		this.log = log;
+	public void setLogHandler(LogHandler logHandler) {
+		this.logHandler = logHandler;
 	}
 
     public LiveBuffer getLiveBuffer() {
