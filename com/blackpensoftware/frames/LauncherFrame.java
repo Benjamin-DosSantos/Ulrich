@@ -38,7 +38,15 @@ public class LauncherFrame extends JFrame{
 	
 	private LauncherPanel launchPanel = new LauncherPanel();
 	private SavePanel savePanel = new SavePanel();
-	
+
+	/**
+	 * Method Name: LauncherFrame
+	 *
+	 * Author: Benjamin DosSantos Jr.
+	 *
+	 * Method description:
+	 *      Creates a new JFrame that is displays launch information to the user
+	 **/
 	public LauncherFrame(){
 		this.setVisible(true);
 		this.setSize(frameWidth, frameHeight);

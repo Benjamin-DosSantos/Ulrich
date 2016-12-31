@@ -6,8 +6,8 @@ import com.blackpensoftware.fileIO.LogHandler;
 import com.blackpensoftware.models.Model;
 
 public class LiveBuffer {
-	private LogHandler logHandler;
-	private ArrayList<Model> activeModels = new ArrayList<Model>();
+	private LogHandler logHandler;	// Log handler that is passed down from the calling class
+	private ArrayList<Model> activeModels = new ArrayList<Model>();		// ArrayList of active models in the scene
 
     /**
      * Method Name: LiveBuffer
@@ -30,6 +30,8 @@ public class LiveBuffer {
      * Method description:
      *      Takes in an ArrayList of models that will act as the new master list for active models in the scene
      *
+	 * @param
+	 * 		logHandler: A LogHandler instance that is passed down from the calling class
      * @param
      *      activeModels: ArrayList of Models that will act as the master list
      *
@@ -74,7 +76,6 @@ public class LiveBuffer {
 	public void addModel(ArrayList<Model> models){
 		for(Model model: models){
 			activeModels.add(model);
-			logHandler.addLogText("Model added to live buffer");
 		}// End of for the number of models in the ArrayList
 	}// End of addModel method
 
@@ -92,7 +93,6 @@ public class LiveBuffer {
      **/
 	public void removeModel(Model model){
 		activeModels.add(model);
-		logHandler.addLogText("Model removed from live buffer");
 	}// End of removeModel method
 
     /**
@@ -106,24 +106,65 @@ public class LiveBuffer {
 	public void removeAllModels(){
 		for(Model model: activeModels){
 			activeModels.remove(model);
-			logHandler.addLogText("Model removed from live buffer");
 		}// End of for all of the models in the activeModels ArrayList
 	}// End of removeAllModels method
 
+	/**
+	 * Method Name: drawAllModels
+	 *
+	 * Author: Benjamin DosSantos Jr.
+	 *
+	 * Method description:
+	 *      parses through the activeModels array and draws all of the active models in the scene
+	 *
+	 **/
 	public void drawAllModels(){
 		for(Model nextModel: activeModels){
 			nextModel.drawModel();
 		}
 	}
 
+	/**
+	 * Method Name: populateExitBuffer
+	 *
+	 * Author: Benjamin DosSantos Jr.
+	 *
+	 * Method description:
+	 *      creates and populates the ExitBuffer for the current game instance
+	 * @return:
+	 * 		return a new, populated, ExitBuffer
+	 *
+	 **/
 	public ExitBuffer populateExitBuffer(){
 		return new ExitBuffer(logHandler);
 	}
 
+	/**
+	 * Method Name: getActiveModels
+	 *
+	 * Author: Benjamin DosSantos Jr.
+	 *
+	 * Method description:
+	 *      returns the an ArrayList of the current models in the scene
+	 * @return:
+	 * 		returns a ArrayList of current active models
+	 *
+	 **/
 	public ArrayList<Model> getActiveModels() {
 		return activeModels;
 	}
 
+	/**
+	 * Method Name: setActiveModels
+	 *
+	 * Author: Benjamin DosSantos Jr.
+	 *
+	 * Method description:
+	 *      Takes in an ArrayList of models and replaces the current activeModels array with the new arrayList
+	 * @param
+	 *      activeModels: ArrayList of models that will replace the current activeModels ArrayList
+	 *
+	 **/
 	public void setActiveModels(ArrayList<Model> activeModels) {
 		this.activeModels = activeModels;
 	}

@@ -27,9 +27,6 @@ public class PreBuffer {
         this.logHandler = logHandler;
 
         logHandler.addLogText("Pre Buffer Created");
-
-        saveName = "Game_1";
-       // this.currentSave = new Save(saveName);
     }// End of constructor
 
     /**

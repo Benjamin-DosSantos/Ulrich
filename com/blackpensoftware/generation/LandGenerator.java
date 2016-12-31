@@ -6,8 +6,6 @@ import java.util.Random;
 
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.primitives.VectorPoint;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
 
 public class LandGenerator {
 	private int xPos;
@@ -18,7 +16,7 @@ public class LandGenerator {
 	private int subDivs;
 	
 	private ArrayList<Model> models = new ArrayList<Model>();
-	PointSmoothingHandler pointSmoother = new PointSmoothingHandler();
+	HeightGenerator heightGenerator = new HeightGenerator();
 
 	Random ran = new Random();
 	
@@ -31,7 +29,7 @@ public class LandGenerator {
 		this.subDivs = subDivs;
 		
 		generateMapPoints();
-		pointSmoother.cleanUpPoints(models, subDivs, max, min);
+		heightGenerator.genHeightMap(models, subDivs, max, min);
 	}// End of LandGenerator constructor
 
 	public void generateMapPoints(){

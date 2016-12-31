@@ -6,11 +6,9 @@ import com.blackpensoftware.primitives.VectorPoint;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by Benjamin DosSantos on 12/16/2016.
- */
-public class PointSmoothingHandler {
-    public void cleanUpPoints(ArrayList<Model> models, int subDivs, int max, int min){
+public class HeightGenerator {
+
+    public void genHeightMap(ArrayList<Model> models, int subDivs, int max, int min){
         int[] lastPoints = populateRandomPoints(subDivs, max, min);
 
         for(Model currentModel: models){
@@ -28,7 +26,7 @@ public class PointSmoothingHandler {
                 }// End of if past the half way point
             }// End of for the vectorPoints in the model
         }// End of for the models in the terrain
-    }// End of cleanUpPoints method
+    }// End of genHeightMap method
 
     public int[] populateRandomPoints(int size, int max, int min){
         int[] newArray = new int[size];

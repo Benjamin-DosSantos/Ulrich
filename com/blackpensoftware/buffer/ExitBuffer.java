@@ -8,6 +8,8 @@ import sun.rmi.runtime.Log;
  */
 public class ExitBuffer {
     private LogHandler logHandler;
+
+
     public ExitBuffer(LogHandler logHandler){
         this.logHandler = logHandler;
 

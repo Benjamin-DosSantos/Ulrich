@@ -13,7 +13,16 @@ public class LogHandler {
     private String fileName = "GameLog.txt";
 	FileHandler fileHandler = new FileHandler();
 	File logFile;
-	
+
+	/**
+	 * Method Name: LogHandler
+	 *
+	 * Author: Benjamin DosSantos Jr.
+	 *
+	 * Method description:
+	 *     	Constructor that creates a new log file when the class is called
+	 *
+	 **/
 	public LogHandler(){
 		createLogFile();
 	}// End of constructor

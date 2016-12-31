@@ -35,6 +35,7 @@ public class DrawHandler {
 	public void defaultAttribs(int windowWidth, int windowHeight){
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
+
 		GL.createCapabilities();
 		GL11.glMatrixMode(GL11.GL_RENDER_MODE);
 		GL11.glLoadIdentity();
@@ -64,11 +65,9 @@ public class DrawHandler {
 		if(currentTranslate < translateMax){
 			GL11.glTranslatef(0, 1, 0);
 			currentTranslate++;
+		}else{
+			GL11.glRotatef(0.5f, 1, 0, 0);
 		}
 
-		if(currentRotate < rotateMax){
-			GL11.glRotatef(0.01f, 1, 0, 0);
-			currentRotate++;
-		}
 	}// End of drawAllObjects method
 }// End of class
