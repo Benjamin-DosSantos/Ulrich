@@ -27,6 +27,7 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import com.blackpensoftware.buffer.ExitBuffer;
+import com.blackpensoftware.dynamics.DayCycle;
 import com.blackpensoftware.physics.GravityHandler;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -59,6 +60,7 @@ public class LWJGE_Window {
 	private ExitBuffer exitBuffer;
 
 	private GravityHandler gravityHandler = new GravityHandler();
+	private DayCycle dayCycle = new DayCycle();
 
 	private String gameName = "Ulrich";
 	

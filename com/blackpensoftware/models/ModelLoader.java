@@ -15,58 +15,67 @@ import java.util.ArrayList;
 public class ModelLoader {
     FileHandler fileHandler = new FileHandler();
 
+    VectorPoint[] modelPoints;
+    int[] modelOrder;
+
+    boolean swap = false;
+
     public ModelLoader(){
 
     }// End of constructor
 
     public Model loadFileToModel(String fileName){
         File file = fileHandler.loadFile(fileName);
-
         String[] fileInfo = fileHandler.fileAsStringArray(file);
 
-        VectorPoint[] modelPoints = parseVectorPoints(fileInfo);
-        int[] modelOrder = parseOrder(modelPoints, fileInfo);
+        parseModelData(fileInfo);
 
         return new Model(modelPoints, modelOrder);
     }// End of loadFileToModel method
 
-    public VectorPoint[] parseVectorPoints(String[] textPoints){
+    public void parseModelData(String[] textPoints){
         ArrayList<VectorPoint> vectorPoints = new ArrayList<>();
-
-        boolean swap = false;
-
-        for(String currentLine: textPoints){
-            String[] currentLineSplit = currentLine.split(" ");
-            if(currentLineSplit[0].equalsIgnoreCase("v")){
-                int xPos = (int) Double.parseDouble(currentLineSplit[1]) * 100 + 300;
-                int yPos = (int) Double.parseDouble(currentLineSplit[2]) * 100;
-                int zPos = (int) Double.parseDouble(currentLineSplit[3]) * 100;
-                if(swap){
-                    vectorPoints.add(new VectorPoint(xPos, yPos, zPos, Color.GREEN));
-                }else{
-                    vectorPoints.add(new VectorPoint(xPos, yPos, zPos, Color.CYAN));
-                }
-
-                swap = !swap;
-            }
-        }
-
-        return arrayListToArray(vectorPoints);
-    }// End of parseVectorPoints method
-
-    public int[] parseOrder(VectorPoint[] modelPoints, String[] textPoints){
         ArrayList<Integer> orderPoints = new ArrayList<>();
 
         for(String currentLine: textPoints){
             String[] currentLineSplit = currentLine.split(" ");
-            if(currentLineSplit[0].equalsIgnoreCase("f")){
-                for(int point = 1; point < currentLineSplit.length; point++){
-                    orderPoints.add(Integer.parseInt(currentLineSplit[point]) - 1);
-                }
+            String infoType = currentLineSplit[0];
+
+            switch (infoType){
+                case "v":
+                    vectorPoints.add(parseVectorPoints(currentLineSplit));
+                    break;
+                case "f":
+                    parseOrder(currentLineSplit, orderPoints);
+                    break;
             }
         }
 
-        return intArrayListToArray(orderPoints);
+        modelPoints = arrayListToArray(vectorPoints);
+        modelOrder = intArrayListToArray(orderPoints);
+    }// End of parseModelData method
+
+
+    public VectorPoint parseVectorPoints(String[] currentLineSplit){
+        int xPos = (int) Double.parseDouble(currentLineSplit[1]) + 300;
+        int yPos = (int) Double.parseDouble(currentLineSplit[2]);
+        int zPos = (int) Double.parseDouble(currentLineSplit[3]);
+
+        return new VectorPoint(xPos, yPos, zPos, Color.GREEN);
+    }// End of parseVectorPoints method
+
+    public void parseOrder(String[] currentLineSplit, ArrayList<Integer> points){
+        for(int point = 1; point < currentLineSplit.length; point++){
+           points.add(Integer.parseInt(currentLineSplit[point]) - 1);
+        }
+    }
+
+    public VectorPoint[] arrayListToArray(ArrayList<VectorPoint> intPoints){
+        VectorPoint[] points  = new VectorPoint[intPoints.size()];
+        for(int i = 0; i < points.length; i++){
+            points[i] = intPoints.get(i);
+        }
+        return points;
     }
 
     public int[] intArrayListToArray(ArrayList<Integer> intPoints){
@@ -76,15 +85,6 @@ public class ModelLoader {
         }
         return points;
     }
-
-    public VectorPoint[] arrayListToArray(ArrayList<VectorPoint> vectorPoints){
-        VectorPoint[] newArray = new VectorPoint[vectorPoints.size()];
-        for(int i = 0; i < newArray.length; i++){
-            newArray[i] = vectorPoints.get(i);
-        }// End of for the size of the array
-
-        return newArray;
-    }// End of arrayListToArray method
 }// End of class
 
 

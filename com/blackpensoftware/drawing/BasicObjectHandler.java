@@ -63,12 +63,12 @@ public class BasicObjectHandler {
 	    int[] pointOrder = {0,1,2,2,3,1};
 	    
 		final Model model = new Model(pointArray, pointOrder, false);
-		//liveBuffer.addModel(model);
+		liveBuffer.addModel(model);
 		
 		LandGenerator landGeneration = new LandGenerator(0, 0, 0, 1024, 1024, 32, 50, 0);
 		ArrayList<Model> models = landGeneration.getModels();
 
-		//liveBuffer.addModel(models);
+		liveBuffer.addModel(models);
 
 		ModelLoader modelLoader = new ModelLoader();
 		liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
