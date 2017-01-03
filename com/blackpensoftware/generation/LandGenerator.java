@@ -27,7 +27,7 @@ public class LandGenerator {
 		this.width = width;
 		this.depth = depth;
 		this.subDivs = subDivs;
-		
+
 		generateMapPoints();
 		heightGenerator.genHeightMap(models, subDivs, max, min);
 	}// End of LandGenerator constructor

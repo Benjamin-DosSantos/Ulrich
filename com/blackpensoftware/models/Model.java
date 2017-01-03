@@ -44,11 +44,20 @@ public class Model {
 	}// End of constructor
 	
 	public void drawModel(){	
-		GL11.glBegin(GL11.GL_LINE_STRIP);
+		GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+
 		for(int point: pointOrder){
 			VectorPoint currentPoint = points[point];
 			Color colorMaster = currentPoint.getColor();
-			GL11.glColor3f(colorMaster.getRed(), colorMaster.getGreen(), colorMaster.getBlue());
+
+			float[] green = {colorMaster.getRed(), colorMaster.getGreen(), colorMaster.getBlue(), 1.0f};
+			float[] white = {1.0f, 1.0f, 1.0f, 1.0f};
+
+			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_AMBIENT, green);
+			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_DIFFUSE, green);
+			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_SPECULAR, white);
+			GL11.glMaterialf(GL11.GL_FRONT, GL11.GL_SHININESS, 10.0f);
+
 			GL11.glVertex3f(currentPoint.getxPos(), currentPoint.getyPos(), currentPoint.getzPos());
 		}
 		GL11.glEnd();

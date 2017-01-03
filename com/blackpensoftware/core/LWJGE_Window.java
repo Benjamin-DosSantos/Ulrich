@@ -60,7 +60,6 @@ public class LWJGE_Window {
 	private ExitBuffer exitBuffer;
 
 	private GravityHandler gravityHandler = new GravityHandler();
-	private DayCycle dayCycle = new DayCycle();
 
 	private String gameName = "Ulrich";
 	

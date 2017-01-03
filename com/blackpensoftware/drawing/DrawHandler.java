@@ -3,6 +3,7 @@ package com.blackpensoftware.drawing;
 import java.util.ArrayList;
 
 import com.blackpensoftware.buffer.LiveBuffer;
+import com.blackpensoftware.dynamics.DayCycle;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
@@ -11,6 +12,8 @@ import com.blackpensoftware.models.Model;
 public class DrawHandler {
 
 	private LiveBuffer liveBuffer;
+	private DayCycle dayCycle = new DayCycle();
+	private LightingHandler lightingHandler = new LightingHandler();
 
 	public DrawHandler(LiveBuffer liveBuffer){
 		this.liveBuffer = liveBuffer;
@@ -42,6 +45,7 @@ public class DrawHandler {
 		GL11.glOrtho(0, windowWidth, 0, windowHeight, 20000, -20000);
 		GL11.glClearDepth(1.0f);
 		GL11.glViewport(0, 0, windowWidth, windowHeight);
+		lightingHandler.defaultLightingSetup();
 	}// End of defaultAttribs method
 
     /**
@@ -59,7 +63,7 @@ public class DrawHandler {
 	int currentRotate = 0;
 
 	public void drawAllObjects() {
-		GL11.glClearColor(0, 0, 0, 1);                        
+		//dayCycle.setBackground();
 		liveBuffer.drawAllModels();
 
 		if(currentTranslate < translateMax){

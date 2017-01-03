@@ -71,6 +71,6 @@ public class BasicObjectHandler {
 		liveBuffer.addModel(models);
 
 		ModelLoader modelLoader = new ModelLoader();
-		liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
+		//liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
 	}// End of createBasicObjects method
 }// End of class

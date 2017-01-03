@@ -1,5 +1,7 @@
 package com.blackpensoftware.dynamics;
 
+import org.lwjgl.opengl.GL11;
+
 /**
  * Created by Benjamin DosSantos Jr. on 1/2/17.
  * Copyright Black Pen Software (c) All Rights Reserved
@@ -14,12 +16,16 @@ public class DayCycle {
     private double assumedFPS = 60;
     private double totalTimeInFrames = timeToFrames(clockCycle);
 
-    public DayCycle(){
-        double time = timeToFrames(12);
-        System.out.println(time);
-        time = framesToTime(time);
-        System.out.println(time);
+    int redPart = 0;
+    int greenPart = 0;
+    int bluePart = 0;
 
+    public DayCycle(){
+
+    }
+
+    public void setBackground(){
+        GL11.glClearColor(redPart, greenPart, bluePart, 1);
     }
 
     private double timeToFrames(double time){
