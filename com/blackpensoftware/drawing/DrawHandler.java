@@ -60,7 +60,6 @@ public class DrawHandler {
 	int translateMax = 500;
 	int rotateMax = 1000;
 	int currentTranslate = 0;
-	int currentRotate = 0;
 
 	public void drawAllObjects() {
 		//dayCycle.setBackground();
@@ -70,7 +69,7 @@ public class DrawHandler {
 			GL11.glTranslatef(0, 1, 0);
 			currentTranslate++;
 		}else{
-			GL11.glRotatef(0.5f, 1, 0, 0);
+			GL11.glRotatef(0.005f, 1, 0, 0);
 		}
 
 	}// End of drawAllObjects method

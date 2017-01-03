@@ -51,12 +51,14 @@ public class Model {
 			Color colorMaster = currentPoint.getColor();
 
 			float[] green = {colorMaster.getRed(), colorMaster.getGreen(), colorMaster.getBlue(), 1.0f};
-			float[] white = {1.0f, 1.0f, 1.0f, 1.0f};
+			float[] white = {0.3f, 0.3f, 0.3f, 1.0f};
+			float[] emissionColor = {0.0f, 0.0f, 0.0f, 1.0f};
 
 			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_AMBIENT, green);
 			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_DIFFUSE, green);
 			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_SPECULAR, white);
-			GL11.glMaterialf(GL11.GL_FRONT, GL11.GL_SHININESS, 10.0f);
+			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_EMISSION, emissionColor);
+			GL11.glMaterialf(GL11.GL_FRONT, GL11.GL_SHININESS, 0.0f);
 
 			GL11.glVertex3f(currentPoint.getxPos(), currentPoint.getyPos(), currentPoint.getzPos());
 		}

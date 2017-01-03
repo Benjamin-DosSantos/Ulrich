@@ -12,11 +12,11 @@ public class LightingHandler {
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_LIGHT0);
 
-        float[] ambiantLight = {0.2f, 0.2f, 0.2f, 1.0f};
-        float[] diffuseLight = {0.8f, 0.8f, 0.8f, 1.0f};
-        float[] specularLight = {0.4f, 0.4f, 0.4f, 1.0f};
+        float[] ambientLight = {0.0f, 0.0f, 0.0f, 1.0f};
+        float[] diffuseLight = {1.0f, 1.0f, 1.0f, 1.0f};
+        float[] specularLight = {1.0f, 1.0f, 1.0f, 1.0f};
 
-        GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_AMBIENT, ambiantLight);
+        GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_AMBIENT, ambientLight);
         GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, diffuseLight);
         GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_SPECULAR, specularLight);
 
