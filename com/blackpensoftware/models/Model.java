@@ -2,6 +2,7 @@ package com.blackpensoftware.models;
 
 import java.awt.Color;
 
+import com.blackpensoftware.core.LWJGE_Window;
 import org.lwjgl.opengl.GL11;
 
 import com.blackpensoftware.primitives.VectorPoint;
@@ -43,8 +44,12 @@ public class Model {
 		this.weight = weight;
 	}// End of constructor
 	
-	public void drawModel(){	
-		GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+	public void drawModel(LWJGE_Window lwjgeWindow){
+	    if(lwjgeWindow.getDebugMode()){
+            GL11.glBegin(GL11.GL_LINE_STRIP);
+        }else {
+            GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+        }
 
 		for(int point: pointOrder){
 			VectorPoint currentPoint = points[point];

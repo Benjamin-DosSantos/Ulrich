@@ -1,34 +1,18 @@
 package com.blackpensoftware.core;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
-import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
-import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
-import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
-import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
-import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
-import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
-import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
-import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
-import static org.lwjgl.glfw.GLFW.glfwInit;
-import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
-import static org.lwjgl.glfw.GLFW.glfwShowWindow;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
-import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import com.blackpensoftware.buffer.ExitBuffer;
+import com.blackpensoftware.data.FPSHandler;
 import com.blackpensoftware.dynamics.DayCycle;
+import com.blackpensoftware.input.MouseHandler;
 import com.blackpensoftware.physics.GravityHandler;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -43,6 +27,8 @@ import com.blackpensoftware.fileIO.LogHandler;
 import com.blackpensoftware.fileIO.Settings;
 import com.blackpensoftware.input.KeyHandler;
 
+import java.nio.DoubleBuffer;
+
 public class LWJGE_Window {
 	// The window handle
 	private long window;
@@ -53,7 +39,8 @@ public class LWJGE_Window {
 	
 
 	private DrawHandler drawHandler;
-	private KeyHandler keys = new KeyHandler();
+	private KeyHandler keys = new KeyHandler(this);
+    private MouseHandler mouseHandler;
 
 	private PreBuffer preBuffer;
     private LiveBuffer liveBuffer;
@@ -65,7 +52,9 @@ public class LWJGE_Window {
 	
 	int windowWidth = 0;
 	int windowHeight = 0;
-	
+
+    public boolean debugMode = false;
+
 	public void run(LogHandler logHandler, ConfigurationHandler config, Settings settings) {
 		this.logHandler = logHandler;
 		this.config = config;
@@ -74,13 +63,13 @@ public class LWJGE_Window {
 		this.logHandler.addLogText("Running LWJGL " + Version.getVersion());
 
 		this.config = new ConfigurationHandler();
-		
+
 		windowWidth = settings.getWidth();
 		windowHeight = settings.getHeight();
 
 		preBuffer = new PreBuffer(logHandler);
 		liveBuffer = preBuffer.populateLiveBuffer();
-		drawHandler = new DrawHandler(liveBuffer);
+		drawHandler = new DrawHandler(this, liveBuffer);
 
 		new BasicObjectHandler(drawHandler, liveBuffer);
 
@@ -120,10 +109,9 @@ public class LWJGE_Window {
 		// Create the window
 		window = glfwCreateWindow(windowWidth, windowHeight, gameName, NULL, NULL);
 		validateWindow(window);
-		
+
 		keys.handleKeys(window);
-		
-		
+
 		// Get the resolution of the primary monitor
 		GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		// Center our window
@@ -136,6 +124,7 @@ public class LWJGE_Window {
 		// Make the window visible
 		glfwShowWindow(window);
 
+        mouseHandler = new MouseHandler(window, windowWidth, windowHeight);
 		gravityHandler.createGravity(liveBuffer);
 	}
 	
@@ -147,7 +136,7 @@ public class LWJGE_Window {
 			logHandler.addLogText("GLFW window opened");
 		}
 	}
-	
+
 	private void loop() {
 		// This line is critical for LWJGL's interoperation with GLFW's
 		// OpenGL context, or any context that is managed externally.
@@ -156,17 +145,22 @@ public class LWJGE_Window {
 		// bindings available for use.
 		GL.createCapabilities();
 		// Set the clear color
-		
-		drawHandler.defaultAttribs(windowWidth, windowHeight);
+
+        FPSHandler fpsHandler = new FPSHandler();
+
+        drawHandler.defaultAttribs(windowWidth, windowHeight);
 		
 		while (!glfwWindowShouldClose(window)) {
 			clear();
-			
+
+			fpsHandler.captureFPS();
+            mouseHandler.captureInput();
 			drawHandler.drawAllObjects();
 			
 			glfwSwapBuffers(window); // swap the color buffers
 			glfwPollEvents();
 		}
+		fpsHandler.printFinalInformation();
 	}
 
 	public static void main(String[] args){
@@ -192,5 +186,13 @@ public class LWJGE_Window {
 
     public void setLiveBuffer(LiveBuffer liveBuffer) {
         this.liveBuffer = liveBuffer;
+    }
+
+    public boolean getDebugMode() {
+        return debugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
     }
 }// End of class

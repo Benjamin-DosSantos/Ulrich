@@ -65,12 +65,12 @@ public class BasicObjectHandler {
 		final Model model = new Model(pointArray, pointOrder, false);
 		liveBuffer.addModel(model);
 		
-		LandGenerator landGeneration = new LandGenerator(0, 0, 0, 1024, 1024, 32, 50, 0);
+		LandGenerator landGeneration = new LandGenerator(0, 0, -500, 1024, 1024, 64, 50, 0);
 		ArrayList<Model> models = landGeneration.getModels();
 
 		liveBuffer.addModel(models);
 
 		ModelLoader modelLoader = new ModelLoader();
-		//liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
+		liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
 	}// End of createBasicObjects method
 }// End of class
