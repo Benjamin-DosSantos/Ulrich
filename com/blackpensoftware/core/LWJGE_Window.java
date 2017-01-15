@@ -120,7 +120,7 @@ public class LWJGE_Window {
 		// Make the OpenGL context current 
 		glfwMakeContextCurrent(window);
 		// Enable v-sync
-		glfwSwapInterval(0);
+		glfwSwapInterval(0); // 0: Unlimited, 1: 60 FPS, 2: 30 FPS, 3: 15 FPS
 		// Make the window visible
 		glfwShowWindow(window);
 

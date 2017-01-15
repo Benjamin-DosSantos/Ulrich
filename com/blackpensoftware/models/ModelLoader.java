@@ -28,6 +28,7 @@ public class ModelLoader {
         File file = fileHandler.loadFile(fileName);
         String[] fileInfo = fileHandler.fileAsStringArray(file);
 
+        splitArrayIntoMultipleObjects(fileInfo);
         parseModelData(fileInfo);
 
         return new Model(modelPoints, modelOrder);
@@ -55,6 +56,23 @@ public class ModelLoader {
         modelOrder = intArrayListToArray(orderPoints);
     }// End of parseModelData method
 
+    public void splitArrayIntoMultipleObjects(String[] fileInfo){
+        int numberOfObjects = calculateNumberOfObjects(fileInfo);
+        
+        System.out.println("Number of Objects: " + numberOfObjects);
+    }
+    
+    public int calculateNumberOfObjects(String[] objectArray){
+        int numberOfObjects = 0;
+        for(String currentLine: objectArray){
+            String[] currentLineSplit = currentLine.split(" ");
+            String infoType = currentLineSplit[0];
+            if(infoType.equals("o")){
+                numberOfObjects++;
+            }// End of if there is new object
+        }// End of for the number of lines in the array
+        return numberOfObjects;
+    }// End of calculateNumberOfObjects method
 
     public VectorPoint parseVectorPoints(String[] currentLineSplit){
         int xPos = (int) Double.parseDouble(currentLineSplit[1]) + 300;
