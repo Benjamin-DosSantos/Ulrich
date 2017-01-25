@@ -112,7 +112,7 @@ public class FileHandler {
 	 * Method Name: splitArrayElements
 	 * 
 	 * Method description: 
-	 * 		Takes in an array of information and a split point to make a new 2D array of data
+	 * 		Takes in an array of information and a split point to make a new 2D array of resources
 	 * @param
 	 * 		array: The master array of information to be split into a 2D array
 	 * @param
@@ -167,7 +167,7 @@ public class FileHandler {
 	 * @param
 	 * 		fileToWrite: The file that the string will be added to
 	 * @param
-	 * 		data: The string of data that is going to be written
+	 * 		data: The string of resources that is going to be written
 	 **/
     public void writeStringToFile(File fileToWrite, String data){
         PrintWriter writer = createCustomWriter(fileToWrite);
@@ -179,18 +179,18 @@ public class FileHandler {
 	 * Method Name: writeArrayToFile
 	 *
 	 * Method description:
-	 *		Writes an array of data to a file
+	 *		Writes an array of resources to a file
 	 * @param
-	 * 		fileToWrite: The file referance that the data will be written to
+	 * 		fileToWrite: The file referance that the resources will be written to
 	 * @param
-	 * 		data: String array of data that will be written to the array
+	 * 		data: String array of resources that will be written to the array
 	 **/
     public void writeArrayToFile(File fileToWrite, String[] data){
         PrintWriter writer = createCustomWriter(fileToWrite);
 
         for(String dataPart: data){
             writer.println(dataPart);
-        }// End of for every String in the string array of data
+        }// End of for every String in the string array of resources
         writer.close();
     }// End of writeArrayToFile
 

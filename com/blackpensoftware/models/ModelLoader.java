@@ -17,6 +17,7 @@ public class ModelLoader {
 
     VectorPoint[] modelPoints;
     int[] modelOrder;
+    int[] normalOrder;
 
     boolean swap = false;
 
@@ -30,13 +31,14 @@ public class ModelLoader {
 
         parseModelData(fileInfo);
 
-        return new Model(modelPoints, modelOrder);
+        return new Model(modelPoints, modelOrder, normalOrder);
     }// End of loadFileToModel method
 
     public void parseModelData(String[] textPoints){
         ArrayList<VectorPoint> vectorPoints = new ArrayList<>();
+        ArrayList<Integer> normalPoints = new ArrayList<>();
         ArrayList<Integer> orderPoints = new ArrayList<>();
-
+        
         for(String currentLine: textPoints){
             String[] currentLineSplit = currentLine.split(" ");
             String infoType = currentLineSplit[0];
@@ -44,6 +46,9 @@ public class ModelLoader {
             switch (infoType){
                 case "v":
                     vectorPoints.add(parseVectorPoints(currentLineSplit));
+                    break;
+                case "vn":
+                    parseNormals(currentLineSplit, normalPoints);
                     break;
                 case "f":
                     parseOrder(currentLineSplit, orderPoints);
@@ -53,9 +58,19 @@ public class ModelLoader {
 
         modelPoints = arrayListToArray(vectorPoints);
         modelOrder = intArrayListToArray(orderPoints);
+        normalOrder = intArrayListToArray(normalPoints);
     }// End of parseModelData method
 
-
+    public void parseNormals(String[] currentLineSplit, ArrayList<Integer> normalPoints){
+        int xNormal = (int) Double.parseDouble(currentLineSplit[1]);
+        int yNormal = (int) Double.parseDouble(currentLineSplit[2]);
+        int zNormal = (int) Double.parseDouble(currentLineSplit[3]);
+        
+        normalPoints.add(xNormal);
+        normalPoints.add(yNormal);
+        normalPoints.add(zNormal);
+    }
+    
     public VectorPoint parseVectorPoints(String[] currentLineSplit){
         int xPos = (int) Double.parseDouble(currentLineSplit[1]) + 300;
         int yPos = (int) Double.parseDouble(currentLineSplit[2]);
@@ -66,7 +81,8 @@ public class ModelLoader {
 
     public void parseOrder(String[] currentLineSplit, ArrayList<Integer> points){
         for(int point = 1; point < currentLineSplit.length; point++){
-           points.add(Integer.parseInt(currentLineSplit[point]) - 1);
+            String[] currentPoint = currentLineSplit[point].split("//");
+            points.add(Integer.parseInt(currentPoint[0]) - 1);
         }
     }
 
@@ -86,5 +102,8 @@ public class ModelLoader {
         return points;
     }
 }// End of class
+
+
+
 
 

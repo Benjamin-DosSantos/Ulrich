@@ -3,6 +3,7 @@ package com.blackpensoftware.drawing;
 import java.util.ArrayList;
 
 import com.blackpensoftware.buffer.LiveBuffer;
+import com.blackpensoftware.core.LWJGE_Window;
 import com.blackpensoftware.dynamics.DayCycle;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -14,9 +15,11 @@ public class DrawHandler {
 	private LiveBuffer liveBuffer;
 	private DayCycle dayCycle = new DayCycle();
 	private LightingHandler lightingHandler = new LightingHandler();
+    private LWJGE_Window lwjgeWindow;
 
-	public DrawHandler(LiveBuffer liveBuffer){
-		this.liveBuffer = liveBuffer;
+	public DrawHandler(LWJGE_Window lwjgeWindow, LiveBuffer liveBuffer){
+		this.lwjgeWindow = lwjgeWindow;
+	    this.liveBuffer = liveBuffer;
 	}
 
 	private int windowWidth;
@@ -40,10 +43,12 @@ public class DrawHandler {
 		this.windowHeight = windowHeight;
 
 		GL.createCapabilities();
-		GL11.glMatrixMode(GL11.GL_RENDER_MODE);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, windowWidth, 0, windowHeight, 20000, -20000);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glOrtho(45, windowWidth, 0, windowHeight, 20000, -20000);
 		GL11.glClearDepth(1.0f);
+		
 		GL11.glViewport(0, 0, windowWidth, windowHeight);
 		lightingHandler.defaultLightingSetup();
 	}// End of defaultAttribs method
@@ -57,20 +62,8 @@ public class DrawHandler {
      *      Draws all of the obects in the objects to draw
      *
      **/
-	int translateMax = 500;
-	int rotateMax = 1000;
-	int currentTranslate = 0;
-
 	public void drawAllObjects() {
 		//dayCycle.setBackground();
-		liveBuffer.drawAllModels();
-
-		if(currentTranslate < translateMax){
-			GL11.glTranslatef(0, 1, 0);
-			currentTranslate++;
-		}else{
-			GL11.glRotatef(0.005f, 1, 0, 0);
-		}
-
+		liveBuffer.drawAllModels(lwjgeWindow);
 	}// End of drawAllObjects method
 }// End of class

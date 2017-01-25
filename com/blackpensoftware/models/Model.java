@@ -2,6 +2,7 @@ package com.blackpensoftware.models;
 
 import java.awt.Color;
 
+import com.blackpensoftware.core.LWJGE_Window;
 import org.lwjgl.opengl.GL11;
 
 import com.blackpensoftware.primitives.VectorPoint;
@@ -9,6 +10,9 @@ import com.blackpensoftware.primitives.VectorPoint;
 public class Model {
 	private VectorPoint[] points;
 	private int[] pointOrder;
+	private int[] normals;
+	private int[] textures;
+
 	private boolean isAffectedByGravity;
 	private double weight;
 	
@@ -19,6 +23,7 @@ public class Model {
 	private double xAcceleration;
 	private double yAcceleration;
 	private double zAcceleration;
+	private int rotateSpeed;
 	
 	public Model(){
 		this.points = new VectorPoint[0];
@@ -32,7 +37,14 @@ public class Model {
 		this.points = points;
 		this.pointOrder = pointOrder;
 	}// End of constructor
-	
+
+	public Model(VectorPoint[] points, int[] pointOrder, int[] normals){
+		this();
+		this.points = points;
+		this.pointOrder = pointOrder;
+		this.normals = normals;
+	}// End of constructor
+
 	public Model(VectorPoint[] points, int[] pointOrder, boolean isAffectedByGravity){
 		this(points, pointOrder);
 		this.isAffectedByGravity = isAffectedByGravity;
@@ -43,9 +55,23 @@ public class Model {
 		this.weight = weight;
 	}// End of constructor
 	
-	public void drawModel(){	
-		GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+	public void drawModel(LWJGE_Window lwjgeWindow){
+	    if(lwjgeWindow.getDebugMode()){
+            GL11.glBegin(GL11.GL_LINE_STRIP);
+        }else {
+            GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+        }
 
+        transformX((int) (xSpeed));
+		transformY((int) (ySpeed));
+		transformZ((int) (zSpeed));
+		
+		xSpeed += xAcceleration;
+		ySpeed += yAcceleration;
+		zSpeed += zAcceleration;
+        
+		GL11.glRotatef(rotateSpeed, 1, 0, 0);
+		
 		for(int point: pointOrder){
 			VectorPoint currentPoint = points[point];
 			Color colorMaster = currentPoint.getColor();
@@ -59,15 +85,40 @@ public class Model {
 			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_SPECULAR, white);
 			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_EMISSION, emissionColor);
 			GL11.glMaterialf(GL11.GL_FRONT, GL11.GL_SHININESS, 0.0f);
-
+			
 			GL11.glVertex3f(currentPoint.getxPos(), currentPoint.getyPos(), currentPoint.getzPos());
 		}
 		GL11.glEnd();
 	}// End of drawModel method
 	
-	public static void rotate(float angle, float xDif, float yDif, float zDif){
-		GL11.glRotatef(angle, xDif, yDif, zDif);
-	}// End of rotate method
+	public void transformX(int ammount){
+		for(VectorPoint point: points){
+			int currentX = point.getxPos();
+			point.setxPos(currentX + ammount);
+		}
+	}
+
+	public void transformY(int ammount){
+		for(VectorPoint point: points){
+			int currentY = point.getyPos();
+			point.setyPos(currentY + ammount);
+		}
+	}
+
+	public void transformZ(int ammount){
+		for(VectorPoint point: points){
+			int currentZ = point.getzPos();
+			point.setzPos(currentZ + ammount);
+		}
+	}
+	
+	public void setRotateSpeed(int rotateSpeed){
+	    this.rotateSpeed = rotateSpeed;
+    }
+    
+    public int getRotateSpeed(){
+	    return rotateSpeed;
+    }
 
 	public VectorPoint[] getPoints() {
 		return points;
