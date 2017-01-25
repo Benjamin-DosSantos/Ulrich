@@ -45,7 +45,10 @@ public class DrawHandler {
 		GL.createCapabilities();
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
+<<<<<<< HEAD
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
+=======
+>>>>>>> origin/master
 		GL11.glOrtho(45, windowWidth, 0, windowHeight, 20000, -20000);
 		GL11.glClearDepth(1.0f);
 		

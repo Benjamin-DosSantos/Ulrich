@@ -71,6 +71,7 @@ public class BasicObjectHandler {
 
 		liveBuffer.addModel(models);
 
+<<<<<<< HEAD
 
         Player player = new Player();
         player.transformY(200);
@@ -91,5 +92,9 @@ public class BasicObjectHandler {
         player_4.transformY(200);
         player_4.transformX(900);
         liveBuffer.addModel(player_4.getAllModels());
+=======
+		ModelLoader modelLoader = new ModelLoader();
+		liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
+>>>>>>> origin/master
 	}// End of createBasicObjects method
 }// End of class

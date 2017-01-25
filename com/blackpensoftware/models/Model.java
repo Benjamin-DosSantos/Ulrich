@@ -62,6 +62,7 @@ public class Model {
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
         }
 
+<<<<<<< HEAD
         transformX((int) (xSpeed));
 		transformY((int) (ySpeed));
 		transformZ((int) (zSpeed));
@@ -72,6 +73,8 @@ public class Model {
         
 		GL11.glRotatef(rotateSpeed, 1, 0, 0);
 		
+=======
+>>>>>>> origin/master
 		for(int point: pointOrder){
 			VectorPoint currentPoint = points[point];
 			Color colorMaster = currentPoint.getColor();

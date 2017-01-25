@@ -146,7 +146,11 @@ public class LWJGE_Window {
 		GL.createCapabilities();
 		// Set the clear color
 
+<<<<<<< HEAD
         FPSHandler fpsHandler = new FPSHandler(liveBuffer);
+=======
+        FPSHandler fpsHandler = new FPSHandler();
+>>>>>>> origin/master
 
         drawHandler.defaultAttribs(windowWidth, windowHeight);
 		
