@@ -1,7 +1,15 @@
 package com.blackpensoftware.data;
 
+<<<<<<< HEAD
 import com.blackpensoftware.buffer.LiveBuffer;
 
+=======
+<<<<<<< HEAD
+import com.blackpensoftware.buffer.LiveBuffer;
+
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 /**
@@ -15,24 +23,50 @@ public class FPSHandler {
     private long totalFrames = 0;
     private int totalSeconds = 0;
 
+<<<<<<< HEAD
     private LiveBuffer liveBuffer;
     
+=======
+<<<<<<< HEAD
+    private LiveBuffer liveBuffer;
+    
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
     public FPSHandler(){
 
     }// End of constructor
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
     public FPSHandler(LiveBuffer liveBuffer){
         this.liveBuffer = liveBuffer;
     }// End of constructor
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
     public void captureFPS(){
         double currentTime = glfwGetTime();
         passedFrames++;
 
         if (currentTime - lastTime >= 1.0 ){
             System.out.println("Frames per Second:" + passedFrames);
+<<<<<<< HEAD
             System.out.println("Active Models: " + liveBuffer.activeModelCount());
             
+=======
+<<<<<<< HEAD
+            System.out.println("Active Models: " + liveBuffer.activeModelCount());
+            
+=======
+
+>>>>>>> origin/master
+>>>>>>> origin/master
             if(minFPS > passedFrames){ minFPS = passedFrames; }
             if(maxFPS < passedFrames){ maxFPS = passedFrames; }
 

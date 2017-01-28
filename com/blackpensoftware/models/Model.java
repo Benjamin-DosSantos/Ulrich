@@ -5,8 +5,11 @@ import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 
 import com.blackpensoftware.core.LWJGE_Window;
+<<<<<<< HEAD
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL;
+=======
+>>>>>>> origin/master
 import org.lwjgl.opengl.GL11;
 
 import com.blackpensoftware.primitives.VectorPoint;
@@ -19,11 +22,15 @@ public class Model {
 	private VectorPoint[] points;
 	private int[] pointOrder;
 	private int[] normals;
+<<<<<<< HEAD
 	private double[] textures;
 	private int[] textureOrder;
 	private BufferedImage image;
 	private int imageID;
 	private boolean loadTexture = false;
+=======
+	private int[] textures;
+>>>>>>> origin/master
 
 	private boolean isAffectedByGravity;
 	private double weight;
@@ -35,6 +42,7 @@ public class Model {
 	private double xAcceleration;
 	private double yAcceleration;
 	private double zAcceleration;
+	private int rotateSpeed;
 	
 	private float rotateAngle;
     private float rotateX;
@@ -61,6 +69,7 @@ public class Model {
 		this.normals = normals;
 	}// End of constructor
 
+<<<<<<< HEAD
 	public Model(VectorPoint[] points, int[] pointOrder, int[] normals, double[] textures, int[] textureOrder, BufferedImage image){
 		this.points = points;
 		this.pointOrder = pointOrder;
@@ -71,6 +80,8 @@ public class Model {
 		this.loadTexture = true;
 	}// End of constructor
 
+=======
+>>>>>>> origin/master
 	public Model(VectorPoint[] points, int[] pointOrder, boolean isAffectedByGravity){
 		this(points, pointOrder);
 		this.isAffectedByGravity = isAffectedByGravity;
@@ -81,19 +92,27 @@ public class Model {
 		this.weight = weight;
 	}// End of constructor
 	
+<<<<<<< HEAD
     public void convertTexture(){
         if(loadTexture){
             convertImage(image);   
         }
     }
     
+=======
+>>>>>>> origin/master
 	public void drawModel(LWJGE_Window lwjgeWindow){
 	    if(lwjgeWindow.getDebugMode()){
             GL11.glBegin(GL11.GL_LINE_STRIP);
         }else {
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
         }
+<<<<<<< HEAD
         
+=======
+
+<<<<<<< HEAD
+>>>>>>> origin/master
         transformX((int) (xSpeed));
 		transformY((int) (ySpeed));
 		transformZ((int) (zSpeed));
@@ -101,7 +120,15 @@ public class Model {
 		xSpeed += xAcceleration;
 		ySpeed += yAcceleration;
 		zSpeed += zAcceleration;
+<<<<<<< HEAD
 		
+=======
+        
+		GL11.glRotatef(rotateSpeed, 1, 0, 0);
+		
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
 		for(int point: pointOrder){
 			VectorPoint currentPoint = points[point];
 			Color colorMaster = currentPoint.getColor();
@@ -115,10 +142,13 @@ public class Model {
 			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_SPECULAR, white);
 			GL11.glMaterialfv(GL11.GL_FRONT, GL11.GL_EMISSION, emissionColor);
 			GL11.glMaterialf(GL11.GL_FRONT, GL11.GL_SHININESS, 0.0f);
+<<<<<<< HEAD
 
 			if(loadTexture){
 				GL11.glTexCoord2d(textures[textureOrder[point]], textures[textureOrder[point + 1]]);
 			}
+=======
+>>>>>>> origin/master
 			
 			GL11.glVertex3f(currentPoint.getxPos(), currentPoint.getyPos(), currentPoint.getzPos());
 		}
@@ -129,12 +159,43 @@ public class Model {
 		GL11.glEnd();
 	}// End of drawModel method
 	
+<<<<<<< HEAD
 	private void convertImage(BufferedImage image){
 	    System.out.println("TGIF!!");
 		int[] pixels = new int[image.getWidth() * image.getHeight()];
 		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
 		ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4); //4 for RGBA, 3 for RGB
+=======
+	public void transformX(int ammount){
+		for(VectorPoint point: points){
+			int currentX = point.getxPos();
+			point.setxPos(currentX + ammount);
+		}
+	}
+
+	public void transformY(int ammount){
+		for(VectorPoint point: points){
+			int currentY = point.getyPos();
+			point.setyPos(currentY + ammount);
+		}
+	}
+
+	public void transformZ(int ammount){
+		for(VectorPoint point: points){
+			int currentZ = point.getzPos();
+			point.setzPos(currentZ + ammount);
+		}
+	}
+	
+	public void setRotateSpeed(int rotateSpeed){
+	    this.rotateSpeed = rotateSpeed;
+    }
+    
+    public int getRotateSpeed(){
+	    return rotateSpeed;
+    }
+>>>>>>> origin/master
 
 		for(int y = 0; y < image.getHeight(); y++){
 			for(int x = 0; x < image.getWidth(); x++){

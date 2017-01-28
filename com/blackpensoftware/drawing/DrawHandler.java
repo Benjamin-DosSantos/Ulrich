@@ -50,7 +50,14 @@ public class DrawHandler {
 		GL.createCapabilities();
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
+<<<<<<< HEAD
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
+=======
+<<<<<<< HEAD
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
 		GL11.glOrtho(45, windowWidth, 0, windowHeight, 20000, -20000);
 		GL11.glClearDepth(1.0f);
 		
@@ -67,9 +74,15 @@ public class DrawHandler {
      *      Draws all of the obects in the objects to draw
      *
      **/
+<<<<<<< HEAD
 	public void drawAllObjects(){
 		//dayCycle.setBackground();
 		liveBuffer.drawAllModels(lwjgeWindow);
 		liveBuffer.runObjectAnimations();
+=======
+	public void drawAllObjects() {
+		//dayCycle.setBackground();
+		liveBuffer.drawAllModels(lwjgeWindow);
+>>>>>>> origin/master
 	}// End of drawAllObjects method
 }// End of class

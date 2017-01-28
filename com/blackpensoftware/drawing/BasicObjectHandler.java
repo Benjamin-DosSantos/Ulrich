@@ -71,26 +71,51 @@ public class BasicObjectHandler {
 
 		liveBuffer.addModel(models);
 
+<<<<<<< HEAD
 
         Player player = new Player();
         player.transformY(200);
         liveBuffer.addModel(player);
+=======
+<<<<<<< HEAD
+
+        Player player = new Player();
+        player.transformY(200);
+        liveBuffer.addModel(player.getAllModels());
+>>>>>>> origin/master
 
         Player player_2 = new Player();
         player_2.transformY(200);
         player_2.transformX(300);
+<<<<<<< HEAD
         liveBuffer.addModel(player_2);
+=======
+        liveBuffer.addModel(player_2.getAllModels());
+>>>>>>> origin/master
 
         Player player_3 = new Player();
         player_3.transformY(200);
         player_3.transformX(600);
+<<<<<<< HEAD
         liveBuffer.addModel(player_3);
+=======
+        player_3.getLeftArm().setRotateSpeed(1);
+        liveBuffer.addModel(player_3.getAllModels());
+>>>>>>> origin/master
 
         Player player_4 = new Player();
         player_4.transformY(200);
         player_4.transformX(900);
+<<<<<<< HEAD
         liveBuffer.addModel(player_4);
         
         liveBuffer.convertAllTextures();
+=======
+        liveBuffer.addModel(player_4.getAllModels());
+=======
+		ModelLoader modelLoader = new ModelLoader();
+		liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
+>>>>>>> origin/master
+>>>>>>> origin/master
 	}// End of createBasicObjects method
 }// End of class

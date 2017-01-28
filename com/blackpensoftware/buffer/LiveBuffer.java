@@ -3,7 +3,10 @@ package com.blackpensoftware.buffer;
 import java.util.ArrayList;
 
 import com.blackpensoftware.core.LWJGE_Window;
+<<<<<<< HEAD
 import com.blackpensoftware.entites.Player;
+=======
+>>>>>>> origin/master
 import com.blackpensoftware.fileIO.LogHandler;
 import com.blackpensoftware.models.Model;
 
@@ -174,6 +177,7 @@ public class LiveBuffer {
 	public int activeModelCount(){
 	    return activeModels.size();
     }
+<<<<<<< HEAD
     
     public void runObjectAnimations(){
 		for(Model model: activeModels){
@@ -188,4 +192,6 @@ public class LiveBuffer {
             model.convertTexture();
         }
     }
+=======
+>>>>>>> origin/master
 }// End of class

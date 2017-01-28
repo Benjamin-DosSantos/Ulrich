@@ -1,21 +1,28 @@
 package com.blackpensoftware.entites;
 
+<<<<<<< HEAD
 import com.blackpensoftware.core.LWJGE_Window;
+=======
+>>>>>>> origin/master
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.models.ModelLoader;
 import com.blackpensoftware.primitives.VectorPoint;
 
+<<<<<<< HEAD
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+=======
+>>>>>>> origin/master
 import java.util.ArrayList;
 
 /**
  * Created by Benjamin DosSantos Jr. on 1/25/2017.
  */
+<<<<<<< HEAD
 public class Player extends Model {
     private ModelLoader modelLoader = new ModelLoader();
     private ArrayList<Model> allModels = new ArrayList<>();
@@ -37,16 +44,32 @@ public class Player extends Model {
             e.printStackTrace();
         }
         
+=======
+public class Player extends Model{
+    ModelLoader modelLoader = new ModelLoader();
+    ArrayList<Model> allModels = new ArrayList<>();
+    
+    Model body = modelLoader.loadFileToModel("player_body.txt");
+    Model leftArm = modelLoader.loadFileToModel("player_arm_left.txt");
+    Model rightArm = modelLoader.loadFileToModel("player_arm_right.txt");
+    Model rightLeg = modelLoader.loadFileToModel("player_leg_right.txt");
+    Model leftLeg = modelLoader.loadFileToModel("player_leg_left.txt");
+    
+    public Player(){
+>>>>>>> origin/master
         prepareModels();
     }// End of constructor
     
     public void prepareModels(){
+<<<<<<< HEAD
         body = modelLoader.loadFileToModel("player_body.txt", image);
         leftArm = modelLoader.loadFileToModel("player_arm_left.txt");
         rightArm = modelLoader.loadFileToModel("player_arm_right.txt");
         rightLeg = modelLoader.loadFileToModel("player_leg_right.txt");
         leftLeg = modelLoader.loadFileToModel("player_leg_left.txt");
         
+=======
+>>>>>>> origin/master
         allModels.add(body);
         allModels.add(leftArm);
         allModels.add(rightArm);
@@ -96,6 +119,7 @@ public class Player extends Model {
         }
     }
     
+<<<<<<< HEAD
     @Override
     public void drawModel(LWJGE_Window lwjgeWindow){
         for(Model model: allModels){
@@ -136,6 +160,10 @@ public class Player extends Model {
     
     public ArrayList<Model> getAllModels(){
         return allModels; 
+=======
+    public ArrayList<Model> getAllModels(){
+        return allModels;
+>>>>>>> origin/master
     }
 
     public Model getBody() {
