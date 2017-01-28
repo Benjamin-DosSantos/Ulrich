@@ -37,7 +37,7 @@ public class PreBuffer {
      * Method description:
      *      Sets the class variables for the save file to custom values
      * @param
-     *      saveName: String of the name of the save file to load all data from
+     *      saveName: String of the name of the save file to load all resources from
      *
      **/
     public PreBuffer(String saveName){

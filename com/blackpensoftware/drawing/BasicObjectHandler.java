@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.blackpensoftware.buffer.LiveBuffer;
+import com.blackpensoftware.entites.Player;
 import com.blackpensoftware.generation.LandGenerator;
 import com.blackpensoftware.models.Model;
 import com.blackpensoftware.models.ModelLoader;
@@ -65,12 +66,31 @@ public class BasicObjectHandler {
 		final Model model = new Model(pointArray, pointOrder, false);
 		liveBuffer.addModel(model);
 		
-		LandGenerator landGeneration = new LandGenerator(0, 0, 0, 1024, 1024, 32, 50, 0);
+		LandGenerator landGeneration = new LandGenerator(0, 0, -500, 1024, 1024, 64, 50, 0);
 		ArrayList<Model> models = landGeneration.getModels();
 
 		liveBuffer.addModel(models);
 
-		ModelLoader modelLoader = new ModelLoader();
-		//liveBuffer.addModel(modelLoader.loadFileToModel("test.txt"));
+
+        Player player = new Player();
+        player.transformY(200);
+        liveBuffer.addModel(player);
+
+        Player player_2 = new Player();
+        player_2.transformY(200);
+        player_2.transformX(300);
+        liveBuffer.addModel(player_2);
+
+        Player player_3 = new Player();
+        player_3.transformY(200);
+        player_3.transformX(600);
+        liveBuffer.addModel(player_3);
+
+        Player player_4 = new Player();
+        player_4.transformY(200);
+        player_4.transformX(900);
+        liveBuffer.addModel(player_4);
+        
+        liveBuffer.convertAllTextures();
 	}// End of createBasicObjects method
 }// End of class

@@ -38,8 +38,12 @@ public class HeightGenerator {
     }// End of populateRandomPoints method
 
     public int newPoint(int max, int min){
-        Random ran = new Random();
-        return ran.nextInt(max - min) + min;
+        if(max == 0 || max == -1){
+            return 0;
+        }else{
+            Random ran = new Random();
+            return ran.nextInt(max - min) + min;
+        }// End of if the new point has a 0 maximum height
     }// End of newPoint method
 
     public boolean checkEven(int numberToCheck){

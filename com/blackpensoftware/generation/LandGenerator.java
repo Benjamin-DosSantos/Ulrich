@@ -57,7 +57,7 @@ public class LandGenerator {
 			int xPos = this.xPos + xOffset + currentRow * (width / subDivs);
 			int yPos = this.yPos;
 			int zPos = this.zPos + zoffset + currentCol * (depth / subDivs);
-		
+
 			if(swap){
 				col[currentCol] = new VectorPoint(xPos, yPos, zPos, Color.BLUE);
 			}else{

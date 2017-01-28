@@ -2,6 +2,8 @@ package com.blackpensoftware.buffer;
 
 import java.util.ArrayList;
 
+import com.blackpensoftware.core.LWJGE_Window;
+import com.blackpensoftware.entites.Player;
 import com.blackpensoftware.fileIO.LogHandler;
 import com.blackpensoftware.models.Model;
 
@@ -118,9 +120,9 @@ public class LiveBuffer {
 	 *      parses through the activeModels array and draws all of the active models in the scene
 	 *
 	 **/
-	public void drawAllModels(){
+	public void drawAllModels(LWJGE_Window lwjgeWindow){
 		for(Model nextModel: activeModels){
-			nextModel.drawModel();
+			nextModel.drawModel(lwjgeWindow);
 		}
 	}
 
@@ -168,4 +170,22 @@ public class LiveBuffer {
 	public void setActiveModels(ArrayList<Model> activeModels) {
 		this.activeModels = activeModels;
 	}
+	
+	public int activeModelCount(){
+	    return activeModels.size();
+    }
+    
+    public void runObjectAnimations(){
+		for(Model model: activeModels){
+			if(model instanceof Player){
+			    ((Player) model).runAnimationLoop();
+			}
+		}
+	}
+	
+	public void convertAllTextures(){
+        for(Model model: activeModels){
+            model.convertTexture();
+        }
+    }
 }// End of class

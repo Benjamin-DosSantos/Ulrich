@@ -54,6 +54,7 @@ public class LauncherFrame extends JFrame{
 		this.setLocation(framePositionX, framePositionY);
 		this.setTitle(title);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		this.add(launchPanel);
 	}// End of constructor

@@ -2,6 +2,7 @@ package com.blackpensoftware.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import com.blackpensoftware.core.LWJGE_Window;
 import com.blackpensoftware.fileIO.FileHandler;
 import org.lwjgl.opengl.GL11;
 
@@ -11,14 +12,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class KeyHandler{
-    File keyMasterFile;
+    private File keyMasterFile;
 
-	EscapeHandler escHandler = new EscapeHandler();
-    FileHandler fileHandler = new FileHandler();
+	private EscapeHandler escHandler = new EscapeHandler();
+    private FileHandler fileHandler = new FileHandler();
 
-    HashMap<String, Integer> keyMap = new HashMap<>();
+    private HashMap<String, Integer> keyMap = new HashMap<>();
 
-	public KeyHandler(){
+    private LWJGE_Window lwjgeWindow;
+
+	public KeyHandler(LWJGE_Window lwjgeWindow){
+	    this.lwjgeWindow = lwjgeWindow;
 	    this.keyMasterFile = fileHandler.loadFile("KeySelections.txt");
 	    writeDefaultsToFile();
     }
@@ -55,6 +59,11 @@ public class KeyHandler{
                     break;
                 case GLFW_KEY_F:
                     GL11.glRotatef(1, -20, 0, 0);
+                    break;
+                case GLFW_KEY_GRAVE_ACCENT:
+                    if (action == GLFW_RELEASE) {
+                        lwjgeWindow.setDebugMode(!lwjgeWindow.getDebugMode());
+                    }
                     break;
                 case GLFW_KEY_ESCAPE:
                     if (action == GLFW_RELEASE) {
